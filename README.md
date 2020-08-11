@@ -1,2 +1,2 @@
 # test_kepler_remote
-testing uploading a repo to kepler remote server
+test uploading a repo to kepler remote server
