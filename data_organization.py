@@ -11,7 +11,7 @@ hdu = 0
 
 dir_ = "~/hdd6tb/02_kepler_time_series_scripts/01_Kepler_KOI/"
 
-print(os.listdir("hdd6tb"))
+print(os.listdir())
 
 values = []
 files = []
