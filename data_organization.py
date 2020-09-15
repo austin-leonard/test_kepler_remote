@@ -19,6 +19,9 @@ for file in glob.glob(dir_+"*.fits"):
     values.append([header.get(key) for key in keys])
     files.append(file)
 
+print(values)
+    
+'''
 row0 = [dict(zip(keys, values[0]))]
 t = Table(row0, names=keys)
 
@@ -33,4 +36,4 @@ print(t.show_in_browser(jsviewer=True))
 df = t.to_pandas()
 
 print(df.sort_values(by=["TEFF"], ascending=False))
-
+'''
