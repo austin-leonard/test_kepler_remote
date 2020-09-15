@@ -11,8 +11,6 @@ hdu = 0
 
 dir_ = "../02_kepler_time_series_scripts/01_Kepler_KOI/"
 
-print(os.listdir("../"))
-
 values = []
 files = []
 for file in glob.glob(dir_+"*.fits"):
@@ -23,7 +21,7 @@ for file in glob.glob(dir_+"*.fits"):
 
 print(values)
     
-'''
+
 row0 = [dict(zip(keys, values[0]))]
 t = Table(row0, names=keys)
 
@@ -38,4 +36,4 @@ print(t.show_in_browser(jsviewer=True))
 df = t.to_pandas()
 
 print(df.sort_values(by=["TEFF"], ascending=False))
-'''
+
