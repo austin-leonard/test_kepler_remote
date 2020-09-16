@@ -31,10 +31,8 @@ new_column = Column(name='path', data=files)
 t.add_column(new_column, 0)
 
 print(t)
-
-'''
 print(t.show_in_browser(jsviewer=True))
-
+'''
 df = t.to_pandas()
 
 print(df.sort_values(by=["TEFF"], ascending=False))
