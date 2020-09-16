@@ -30,8 +30,11 @@ for i in range(1, len(values)):
 new_column = Column(name='path', data=files)
 t.add_column(new_column, 0)
 
-t.write("test_table.dat", format = "ascii.ecsv")
-t.write("test2_table.dat", format = "ascii.html")
+#t.write("test_table.dat", format = "ascii.ecsv")
+#t.write("test2_table.dat", format = "ascii.html")
+t.write("test3_table.html", format = "ascii.html")
+t.write("test4_table.ecsv", format = "ascii.ecsv")
+
 '''
 df = t.to_pandas()
 
