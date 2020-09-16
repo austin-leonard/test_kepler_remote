@@ -6,7 +6,7 @@ import os
 import glob
 from astropy.table import Table, Column
 
-keys = ["OBJECT", "OBSMODE", "QUARTER", "TEFF", "RADIUS"]
+keys = ["OBJECT", "OBSMODE", "QUARTER"]
 hdu = 0
 
 dir_ = "../02_kepler_time_series_scripts/01_Kepler_KOI/"
