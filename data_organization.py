@@ -20,7 +20,7 @@ for file in glob.glob(dir_+"*.fits"):
     files.append(file)    
 
 row0 = [dict(zip(keys, values[0]))]
-t = Table(row0, names=keys)
+t = Table(row0, names=keys, masked = True)
 
 
 
