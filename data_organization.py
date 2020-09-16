@@ -17,14 +17,13 @@ for file in glob.glob(dir_+"*.fits"):
 
     header = fits.getheader(file, hdu)
     values.append([header.get(key) for key in keys])
-    files.append(file)
-
-print(values)
-    
+    files.append(file)    
 
 row0 = [dict(zip(keys, values[0]))]
 t = Table(row0, names=keys)
 
+print(t)
+'''
 for i in range(1, len(values)):
     t.add_row(values[i])
 
@@ -36,4 +35,4 @@ print(t.show_in_browser(jsviewer=True))
 df = t.to_pandas()
 
 print(df.sort_values(by=["TEFF"], ascending=False))
-
+'''
