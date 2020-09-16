@@ -6,7 +6,7 @@ import os
 import glob
 from astropy.table import Table, Column
 
-keys = ["OBJECT", "OBSMODE", "QUARTER"]
+keys = ["OBJECT", "OBSMODE", "QUARTER", "TEFF", "RADIUS", "KEPMAG"]
 hdu = 0
 
 dir_ = "../02_kepler_time_series_scripts/01_Kepler_KOI/"
@@ -32,7 +32,7 @@ t.add_column(new_column, 0)
 
 #t.write("test_table.dat", format = "ascii.ecsv")
 #t.write("test2_table.dat", format = "ascii.html")
-#t.write("test3_table.html", format = "ascii.html")
+t.write("test3_table.html", format = "ascii.html", overwrite = True)
 #t.write("test4_table.ecsv", format = "ascii.ecsv")
       
 '''
