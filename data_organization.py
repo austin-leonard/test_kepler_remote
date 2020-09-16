@@ -22,14 +22,17 @@ for file in glob.glob(dir_+"*.fits"):
 row0 = [dict(zip(keys, values[0]))]
 t = Table(row0, names=keys)
 
-print(t)
-'''
+
+
 for i in range(1, len(values)):
     t.add_row(values[i])
 
 new_column = Column(name='path', data=files)
 t.add_column(new_column, 0)
 
+print(t)
+
+'''
 print(t.show_in_browser(jsviewer=True))
 
 df = t.to_pandas()
