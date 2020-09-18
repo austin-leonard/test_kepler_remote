@@ -9,7 +9,7 @@ from astropy.table import Table, Column
 keys = ["OBJECT", "OBSMODE", "QUARTER", "RADIUS", "KEPMAG"]
 hdu = 0
 
-dir_ = "../02_kepler_time_series_scripts/03_Kepler_TCE/"
+dir_ = "../02_kepler_time_series_scripts/07_Kepler_Q0/"
 
 values = []
 files = []
@@ -30,8 +30,4 @@ for i in range(1, len(values)):
 new_column = Column(name='path', data=files)
 t.add_column(new_column, 0)
 
-#t.write("test_table.dat", format = "ascii.ecsv")
-#t.write("test2_table.dat", format = "ascii.html")
-#t.write("test3_table.html", format = "ascii.html", overwrite = True)
-#t.write("test4_table.ecsv", format = "ascii.ecsv")
-t.write("kepler-tce.html", format = "ascii.html", overwrite = True)
+t.write("kepler_q0.html", format = "ascii.html", overwrite = True)
