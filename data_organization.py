@@ -46,7 +46,7 @@ for file in glob.glob(dir_+"*.fits"):
         flare_threshold = median + (6*sigma)
         peaks, peak_val = find_peaks(y, height=flare_threshold, distance=4)
         n_flares.append(len(peaks))
-    fits.close(str(file))
+    lc_raw.close()
     
 
 row0 = [dict(zip(keys, values[0]))]
