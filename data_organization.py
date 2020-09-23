@@ -36,7 +36,7 @@ for file in glob.glob(dir_+"*.fits"):
         x = lc.flux
         median = np.median(x)
         sigma = np.std(x)
-        flare_threshold = median + (6*sigma)
+        flare_threshold = median + (3*sigma)
         peaks, peak_val = find_peaks(x, height=flare_threshold, distance=30)
         n_flares.append(len(peaks))
     else:
