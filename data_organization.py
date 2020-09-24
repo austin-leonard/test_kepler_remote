@@ -11,7 +11,7 @@ from scipy.signal import find_peaks
 keys = ["OBJECT", "OBSMODE", "QUARTER", "RADIUS", "KEPMAG"]
 hdu = 0
 
-dir_ = "../02_kepler_time_series_scripts/"
+dir_ = "../02_kepler_time_series_scripts/09_Kepler_Q2"
 
 directories = glob.glob(dir_ + "*_Q*")
 
@@ -21,7 +21,7 @@ n_flares = []
 
 # Loop through each directory and each file in it
 #for directory in directories:
-for file in glob.glob(directory+"*.fits"):
+for file in glob.glob(dir_+"*.fits"):
     # Get header contents
     header = fits.getheader(file, hdu)
     values.append([header.get(key) for key in keys])
