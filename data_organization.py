@@ -20,7 +20,6 @@ files = []
 n_flares = []
 
 # Loop through each directory and each file in it
-
 for directory in directories:
     for file in glob.glob(directory+"*.fits"):
 
