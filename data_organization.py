@@ -20,39 +20,38 @@ files = []
 n_flares = []
 
 # Loop through each directory and each file in it
-for directory in directories:
-    for file in glob.glob(directory+"*.fits"):
-
-        # Get header contents
-        header = fits.getheader(file, hdu)
-        values.append([header.get(key) for key in keys])
-        files.append(file)   
+#for directory in directories:
+for file in glob.glob(directory+"*.fits"):
+    # Get header contents
+    header = fits.getheader(file, hdu)
+    values.append([header.get(key) for key in keys])
+    files.append(file)   
     
-        # Get number of flares and flare times
-        lc_raw = fits.open(str(file))
-        raw_flux = lc_raw[1].data["PDCSAP_FLUX"]
-        time = lc_raw[1].data["TIME"]
+    # Get number of flares and flare times
+    lc_raw = fits.open(str(file))
+    raw_flux = lc_raw[1].data["PDCSAP_FLUX"]
+    time = lc_raw[1].data["TIME"]
 
-        lc = lk.LightCurve(time = time, flux = raw_flux)
-        lc = lc.remove_nans().flatten()
+    lc = lk.LightCurve(time = time, flux = raw_flux)
+    lc = lc.remove_nans().flatten()
 
-        # different cadences require different flare detection windows
-        cadence = header.get("OBSMODE")
-        if cadence == "short cadence":
-            x = lc.flux
-            median = np.median(x)
-            sigma = np.std(x)
-            flare_threshold = median + (3*sigma)
-            peaks, peak_val = find_peaks(x, height=flare_threshold, distance=30)
-            n_flares.append(len(peaks))
-        else:
-            y = lc.flux
-            median = np.median(y)
-            sigma = np.std(y)
-            flare_threshold = median + (6*sigma)
-            peaks, peak_val = find_peaks(y, height=flare_threshold, distance=4)
-            n_flares.append(len(peaks))
-        lc_raw.close()
+    # different cadences require different flare detection windows
+    cadence = header.get("OBSMODE")
+    if cadence == "short cadence":
+        x = lc.flux
+        median = np.median(x)
+        sigma = np.std(x)
+        flare_threshold = median + (3*sigma)
+        peaks, peak_val = find_peaks(x, height=flare_threshold, distance=30)
+        n_flares.append(len(peaks))
+    else:
+        y = lc.flux
+        median = np.median(y)
+        sigma = np.std(y)
+        flare_threshold = median + (6*sigma)
+        peaks, peak_val = find_peaks(y, height=flare_threshold, distance=4)
+        n_flares.append(len(peaks))
+    lc_raw.close()
     
 
 # Construct table
