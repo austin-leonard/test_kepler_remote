@@ -68,4 +68,4 @@ flares = Column(name = "n_flares", data = n_flares)
 t.add_column(flares)
 
 # Save table as a file
-t.write("kepler_q1.html", format = "ascii.html", overwrite = True)
+t.write("kepler_q2.html", format = "ascii.html", overwrite = True)
