@@ -11,7 +11,7 @@ from scipy.signal import find_peaks
 keys = ["OBJECT", "OBSMODE", "QUARTER", "RADIUS", "KEPMAG"]
 hdu = 0
 
-dir_ = "../02_kepler_time_series_scripts/09_Kepler_Q2"
+dir_ = "../02_kepler_time_series_scripts/09_Kepler_Q2/"
 
 directories = glob.glob(dir_ + "*_Q*")
 
