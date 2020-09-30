@@ -11,7 +11,7 @@ from scipy.signal import find_peaks
 keys = ["OBJECT", "OBSMODE", "QUARTER", "RADIUS", "KEPMAG"]
 hdu = 0
 
-dir_ = "../02_kepler_time_series_scripts/09_Kepler_Q2/"
+dir_ = "../02_kepler_time_series_scripts/01_Kepler_KOI/"
 
 directories = glob.glob(dir_ + "*_Q*/")
 
@@ -82,4 +82,4 @@ flares_sixsig = Column(name = "Flares Above Six Sigma", data = flares_above_six_
 t.add_column(flares_sixsig)
 
 # Save table as a file
-t.write("kepler_q2.html", format = "ascii.html", overwrite = True)
+t.write("kepler_koi.html", format = "ascii.html", overwrite = True)
