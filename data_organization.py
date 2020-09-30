@@ -13,11 +13,12 @@ hdu = 0
 
 dir_ = "../02_kepler_time_series_scripts/09_Kepler_Q2/"
 
-directories = glob.glob(dir_ + "*_Q*")
+directories = glob.glob(dir_ + "*_Q*/")
 
 values = []
 files = []
-n_flares = []
+total_flares = []
+flares_above_6_sigma = []
 
 # Loop through each directory and each file in it
 #for directory in directories:
@@ -43,14 +44,24 @@ for file in glob.glob(dir_+"*.fits"):
         sigma = np.std(x)
         flare_threshold = median + (3*sigma)
         peaks, peak_val = find_peaks(x, height=flare_threshold, distance=30)
-        n_flares.append(len(peaks))
+        total_flares.append(len(peaks))
+        
+        flare_threshold_six_sigma = median + (6*sigma)
+        peaks_six, peak_val_six = find_peaks(x, height=flare_threshold_six_sigma, distance=30)
+        flares_above_6_sigma.append(len(peaks_six))
+        
     else:
         y = lc.flux
         median = np.median(y)
         sigma = np.std(y)
         flare_threshold = median + (6*sigma)
         peaks, peak_val = find_peaks(y, height=flare_threshold, distance=4)
-        n_flares.append(len(peaks))
+        total_flares.append(len(peaks))
+        
+        flare_threshold_six_sigma = median + (6*sigma)
+        peaks_six, peak_val_six = find_peaks(y, height=flare_threshold_six_sigma, distance=4)
+        flares_above_6_sigma.append(len(peaks_six))
+        
     lc_raw.close()
     
 
@@ -64,8 +75,11 @@ for i in range(1, len(values)):
 new_column = Column(name='path', data=files)
 t.add_column(new_column, 0)
 
-flares = Column(name = "n_flares", data = n_flares)
+flares = Column(name = "Total Flares", data = total_flares)
 t.add_column(flares)
+
+flares_sixsig = Column(name = "Flares Above Six Sigma", data = flares_above_six_sigma)
+t.add_column(flares_sixsig)
 
 # Save table as a file
 t.write("kepler_q2.html", format = "ascii.html", overwrite = True)
