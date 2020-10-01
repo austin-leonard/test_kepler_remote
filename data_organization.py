@@ -22,7 +22,7 @@ flares_above_6_sigma = []
 
 # Loop through each directory and each file in it
 #for directory in directories:
-for file in glob.glob(dir_+"*.fits"):
+for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     # Get header contents
     header = fits.getheader(file, hdu)
     values.append([header.get(key) for key in keys])
@@ -61,7 +61,9 @@ for file in glob.glob(dir_+"*.fits"):
         flare_threshold_six_sigma = median + (6*sigma)
         peaks_six, peak_val_six = find_peaks(y, height=flare_threshold_six_sigma, distance=4)
         flares_above_6_sigma.append(len(peaks_six))
-        
+    
+    print("Finished", ind, "of", len(os.listdir(dir_)))
+    
     lc_raw.close()
     
 
