@@ -54,7 +54,7 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
         y = lc.flux
         median = np.median(y)
         sigma = np.std(y)
-        flare_threshold = median + (6*sigma)
+        flare_threshold = median + (3*sigma)
         peaks, peak_val = find_peaks(y, height=flare_threshold, distance=4)
         total_flares.append(len(peaks))
         
