@@ -80,7 +80,7 @@ t.add_column(new_column, 0)
 flares = Column(name = "Total Flares", data = total_flares)
 t.add_column(flares)
 
-flares_sixsig = Column(name = "Flares Above Six Sigma", data = flares_above_six_sigma)
+flares_sixsig = Column(name = "Flares Above Six Sigma", data = flares_above_6_sigma)
 t.add_column(flares_sixsig)
 
 # Save table as a file
