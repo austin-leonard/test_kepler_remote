@@ -65,7 +65,7 @@ for directory in directories:
     
         lc_raw.close()
         
-        print("Finished", ind, "of", len(os.listdir(directory)) "in directory", directory)
+        print("Finished", ind, "of", len(os.listdir(directory)), "in directory", directory)
     
        
     
