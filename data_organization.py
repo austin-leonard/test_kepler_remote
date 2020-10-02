@@ -13,7 +13,7 @@ hdu = 0
 
 dir_ = "../02_kepler_time_series_scripts/"
 
-directories = glob.glob(dir_ + "*_Q*/")
+directories = glob.glob(dir_ + "*_Kepler_Q*/")
 
 values = []
 files = []
