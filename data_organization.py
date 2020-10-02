@@ -63,7 +63,7 @@ for directory in directories:
             peaks_six, peak_val_six = find_peaks(y, height=flare_threshold_six_sigma, distance=4)
             flares_above_6_sigma.append(len(peaks_six))
     
-        print("Finished", ind, "of", len(os.listdir(dir_)))
+        print("Finished", ind, "of", len(os.listdir(directory)))
     
         lc_raw.close()
     
