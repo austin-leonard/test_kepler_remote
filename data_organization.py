@@ -34,10 +34,10 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     lc_raw = fits.open(str(file))
     raw_flux = lc_raw[1].data["PDCSAP_FLUX"]
     time = lc_raw[1].data["TIME"]
-
+    
     lc = lk.LightCurve(time = time, flux = raw_flux)
     lc = lc.remove_nans().flatten()
-
+    
     # different cadences require different flare detection windows
     cadence = header.get("OBSMODE")
     if cadence == "short cadence":
@@ -55,7 +55,7 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
                 flare_heights.append(num)
             
         median_flare_int.append(np.median(flare_heights))
-        
+            
         flare_threshold_six_sigma = median + (6*sigma)
         peaks_six, peak_val_six = find_peaks(x, height=flare_threshold_six_sigma, distance=30)
         flares_above_6_sigma.append(len(peaks_six))
@@ -79,13 +79,11 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
         flare_threshold_six_sigma = median + (6*sigma)
         peaks_six, peak_val_six = find_peaks(y, height=flare_threshold_six_sigma, distance=4)
         flares_above_6_sigma.append(len(peaks_six))
-    
+        
     lc_raw.close()
         
     print("Finished", ind, "of", len(os.listdir(directory)), "in directory", directory)
-    
        
-    
 
 # Construct table
 row0 = [dict(zip(keys, values[0]))]
