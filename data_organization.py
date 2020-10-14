@@ -12,7 +12,7 @@ keys = ["OBJECT", "OBSMODE", "QUARTER", "RADIUS", "KEPMAG"]
 hdu = 0
 
 dir_ = "../02_kepler_time_series_scripts/01_Kepler_KOI"
-print(glob.glob(dir_+".fits"))
+print(glob.glob(dir_+"*.fits"))
 directories = glob.glob(dir_ + "*_Kepler_Q*/")
 
 values = []
