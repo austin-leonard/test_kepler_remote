@@ -83,7 +83,7 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
         
     lc_raw.close()
         
-    print("Finished", ind, "of", len(os.listdir(directory)), "in directory", directory)
+    print("Finished", ind, "of", len(os.listdir(dir_)), "in directory", dir_)
        
 
 # Construct table
