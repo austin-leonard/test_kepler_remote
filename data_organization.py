@@ -28,27 +28,27 @@ bv_color = []
 # for directory in directories:
 for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     # Get header contents
-    header = fits.getheader(file, hdu)
+    header_ = fits.getheader(file, hdu)
     
-    print("File number", ind, "has Temp", header.get("TEFF"), type(header.get("TEFF")))
-    if header.get("TEFF") is None:
-        fits.setval(file, "TEFF", val = 1)
+    print("File number", ind, "has Temp", header_.get("TEFF"), type(header_.get("TEFF")))
+    if header_.get("TEFF") is None:
+        file[0].header["TEFF"] = 1
         
-    print("File number", ind, "has Temp", header.get("TEFF"), type(header.get("TEFF")))
+    print("File number", ind, "has Temp", header_.get("TEFF"), type(header_.get("TEFF")))
     
-    values.append([header.get(key) for key in keys])
+    values.append([header_.get(key) for key in keys])
     files.append(file)   
     
     # Convert G-R Color to B-V Color
     # Source: http://www.sdss3.org/dr8/algorithms/sdssUBVRITransform.php
     
-    print("File number", ind, "has G-R Color", header.get("GRCOLOR"), type(header.get("GRCOLOR")))
-    if header.get("GRCOLOR") is None:
-        fits.setval(file, "GRCOLOR", val = 0.0)
+    print("File number", ind, "has G-R Color", header_.get("GRCOLOR"), type(header_.get("GRCOLOR")))
+    if header_.get("GRCOLOR") is None:
+        file[0].header["GRCOLOR"] = 0.0
     
-    print("File number", ind, "has G-R Color", header.get("GRCOLOR"), type(header.get("GRCOLOR")))
+    print("File number", ind, "has G-R Color", header_.get("GRCOLOR"), type(header_.get("GRCOLOR")))
     
-    gr = header.get("GRCOLOR")
+    gr = header_.get("GRCOLOR")
     bv = 0.98*(gr) + 0.22
     
     bv_color.append(bv)
@@ -62,7 +62,7 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     lc = lc.remove_nans().flatten()
     
     # different cadences require different flare detection windows
-    cadence = header.get("OBSMODE")
+    cadence = header_.get("OBSMODE")
     if cadence == "short cadence":
         x = lc.flux
         median = np.median(x)
