@@ -34,8 +34,12 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     
     # Convert G-R Color to B-V Color
     # Source: http://www.sdss3.org/dr8/algorithms/sdssUBVRITransform.php
+    
     gr = header.get("GRCOLOR")
-    bv = 0.98*(gr) + 0.22
+    if type(gr) != "NoneType":
+        bv = 0.98*(gr) + 0.22
+    else:
+        bv = -99
     
     bv_color.append(bv)
     
