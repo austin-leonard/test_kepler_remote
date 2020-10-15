@@ -8,7 +8,7 @@ from astropy.table import Table, Column
 import lightkurve as lk
 from scipy.signal import find_peaks
 
-keys = ["OBJECT", "OBSMODE", "QUARTER", "TEFF", "RADIUS", "KEPMAG"]
+keys = ["OBJECT", "OBSMODE", "QUARTER", "RADIUS", "KEPMAG"]
 hdu = 0
 
 dir_ = "../02_kepler_time_series_scripts/01_Kepler_KOI/"
