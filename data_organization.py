@@ -33,6 +33,8 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     print("File number", ind, "has Temp", header.get("TEFF"), type(header.get("TEFF")))
     if header.get("TEFF") is None:
         fits.setval(file, "TEFF", val = 1)
+        
+    print("File number", ind, "has Temp", header.get("TEFF"), type(header.get("TEFF")))
     
     values.append([header.get(key) for key in keys])
     files.append(file)   
@@ -40,8 +42,11 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     # Convert G-R Color to B-V Color
     # Source: http://www.sdss3.org/dr8/algorithms/sdssUBVRITransform.php
     
+    print("File number", ind, "has G-R Color", header.get("GRCOLOR"), type(header.get("GRCOLOR")))
     if header.get("GRCOLOR") is None:
         fits.setval(file, "GRCOLOR", val = 0.0)
+    
+    print("File number", ind, "has G-R Color", header.get("GRCOLOR"), type(header.get("GRCOLOR")))
     
     gr = header.get("GRCOLOR")
     bv = 0.98*(gr) + 0.22
