@@ -41,7 +41,7 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     # Source: http://www.sdss3.org/dr8/algorithms/sdssUBVRITransform.php
     
     if header.get("GRCOLOR") is None:
-        file[0].header["GRCOLOR"] = 0.0
+        fits.setval(file, "GRCOLOR", val = 0.0)
     
     gr = header.get("GRCOLOR")
     bv = 0.98*(gr) + 0.22
