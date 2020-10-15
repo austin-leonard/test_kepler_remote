@@ -8,7 +8,7 @@ from astropy.table import Table, Column
 import lightkurve as lk
 from scipy.signal import find_peaks
 
-keys = ["OBJECT", "OBSMODE", "QUARTER", "RADIUS", "KEPMAG"]
+keys = ["OBJECT", "OBSMODE", "QUARTER", "TEFF", "RADIUS", "KEPMAG"]
 hdu = 0
 
 dir_ = "../02_kepler_time_series_scripts/01_Kepler_KOI/"
@@ -29,17 +29,21 @@ bv_color = []
 for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     # Get header contents
     header = fits.getheader(file, hdu)
+    
+    if header.get("TEFF") is None:
+        fits.setval(file, "TEFF", value=0.0)
+    
     values.append([header.get(key) for key in keys])
     files.append(file)   
     
     # Convert G-R Color to B-V Color
     # Source: http://www.sdss3.org/dr8/algorithms/sdssUBVRITransform.php
+   
+    if header.get("GRCOLOR") is "None":
+        fits.setval(file, "GRCOLOR", value=0.0)
     
     gr = header.get("GRCOLOR")
-    if gr is "None":
-        bv = -99
-    else:
-        bv = 0.98*(gr) + 0.22
+    bv = 0.98*(gr) + 0.22
     
     bv_color.append(bv)
     
