@@ -21,6 +21,7 @@ files = []
 total_flares = []
 flares_above_6_sigma = []
 median_flare_int = []
+bv_color = []
 
 # Loop through each directory and each file in it
 #for directory in directories:
@@ -30,6 +31,14 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     header = fits.getheader(file, hdu)
     values.append([header.get(key) for key in keys])
     files.append(file)   
+    
+    # Convert G-R Color to B-V Color
+    # Source: http://www.sdss3.org/dr8/algorithms/sdssUBVRITransform.php
+    g = header.get("GMAG")
+    r = header.get("RMAG")
+    bv = 0.98*(g-r) + 0.22
+    
+    bv_color.append(bv)
     
     # Get number of flares and flare times
     lc_raw = fits.open(str(file))
@@ -104,6 +113,9 @@ t.add_column(flares_sixsig)
 
 med_int = Column(name="Median Flare Intensity", data=median_flare_int)
 t.add_column(med_int)
+
+bv_col = Column(name="B-V Color Estimate", data=bv_color)
+t.add_column(bv_col)
 
 # Save table as a file
 t.write("kepler_koi.html", format = "ascii.html", overwrite = True)
