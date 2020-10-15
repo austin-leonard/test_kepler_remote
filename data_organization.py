@@ -36,10 +36,10 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     # Source: http://www.sdss3.org/dr8/algorithms/sdssUBVRITransform.php
     
     gr = header.get("GRCOLOR")
-    if type(gr) != "NoneType":
-        bv = 0.98*(gr) + 0.22
-    else:
+    if type(gr) == "NoneType":
         bv = -99
+    else:
+        bv = 0.98*(gr) + 0.22
     
     bv_color.append(bv)
     
