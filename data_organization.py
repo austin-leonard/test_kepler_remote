@@ -30,8 +30,9 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     # Get header contents
     header = fits.getheader(file, hdu)
     
+    print("File number", ind, "has Temp", header.get("TEFF"), type(header.get("TEFF")))
     if header.get("TEFF") is None:
-        file[0].header["TEFF"] = 0
+        file[0].header["TEFF"] = 0.0
     
     values.append([header.get(key) for key in keys])
     files.append(file)   
@@ -41,8 +42,6 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     
     if header.get("GRCOLOR") is None:
         file[0].header["GRCOLOR"] = 0.0
-    
-    print("File number", ind, "has G-R color", header.get("GRCOLOR"), type(header.get("GRCOLOR")))
     
     gr = header.get("GRCOLOR")
     bv = 0.98*(gr) + 0.22
