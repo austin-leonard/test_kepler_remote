@@ -31,7 +31,7 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     header = fits.getheader(file, hdu)
     
     if header.get("TEFF") is None:
-        fits.setval(file, "TEFF", value=0.0)
+        file[0].header["TEFF"] = 0
     
     values.append([header.get(key) for key in keys])
     files.append(file)   
