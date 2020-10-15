@@ -32,7 +32,7 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     
     print("File number", ind, "has Temp", header.get("TEFF"), type(header.get("TEFF")))
     if header.get("TEFF") is None:
-        file[0].header["TEFF"] = 0.0
+        fits.setval(file, "TEFF", val = 1)
     
     values.append([header.get(key) for key in keys])
     files.append(file)   
