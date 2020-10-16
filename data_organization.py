@@ -11,7 +11,7 @@ from scipy.signal import find_peaks
 keys = ["OBJECT", "OBSMODE", "QUARTER", "TEFF", "RADIUS", "KEPMAG"]
 hdu = 0
 
-dir_ = "../02_kepler_time_series_scripts/01_Kepler_KOI/"
+dir_ = "../02_kepler_time_series_scripts/07_Kepler_Q0/"
 directories = glob.glob(dir_ + "*_Kepler_Q*/")
 
 values = []
@@ -129,4 +129,4 @@ bv_col = Column(name="B-V Color Estimate", data=bv_color)
 t.add_column(bv_col)
 
 # Save table as a file
-t.write("kepler_koi.html", format = "ascii.html", overwrite = True)
+t.write("kepler_q0.html", format = "ascii.html", overwrite = True)
