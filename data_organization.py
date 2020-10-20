@@ -11,7 +11,7 @@ from scipy.signal import find_peaks
 keys = ["OBJECT", "OBSMODE", "QUARTER", "TEFF", "RADIUS", "KEPMAG"]
 hdu = 0
 
-dir_ = "../02_kepler_time_series_scripts/07_Kepler_Q0/"
+dir_ = "../02_kepler_time_series_scripts/01_Kepler_KOI/"
 directories = glob.glob(dir_ + "*_Kepler_Q*/")
 
 values = []
@@ -20,6 +20,8 @@ total_flares = []
 flares_above_6_sigma = []
 median_flare_int = []
 bv_color = []
+flares_one_percent = []
+flares_four_percent = []
 
 # Loop through each directory and each file in it
 #for directory in directories:
@@ -74,6 +76,20 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
         for val in peak_val.values():
             for num in val:
                 flare_heights.append(num)
+                
+        # Calculate the percentage above background flux of each flare
+        peaks_one = []
+        peaks_four = []
+        for flare in flare_heights:
+            raw_val = 100*(flare - 1)
+            if raw_val > 1:
+                peaks_one.append(raw_val)
+
+            if raw_val > 4:
+                peaks_four.append(raw_val)
+
+        flares_one_percent.append(len(peaks_one))
+        flares_four_percent.append(len(peaks_four))
             
         median_flare_int.append(np.median(flare_heights))
             
@@ -94,6 +110,20 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
         for val in peak_val.values():
             for num in val:
                 flare_heights.append(num)
+                
+        # Calculate the percentage above background flux of each flare
+        peaks_one = []
+        peaks_four = []
+        for flare in flare_heights:
+            raw_val = 100*(flare - 1)
+            if raw_val > 1:
+                peaks_one.append(raw_val)
+
+            if raw_val > 4:
+                peaks_four.append(raw_val)
+
+        flares_one_percent.append(len(peaks_one))
+        flares_four_percent.append(len(peaks_four))
                     
         median_flare_int.append(np.median(flare_heights))
         
@@ -127,6 +157,12 @@ t.add_column(med_int)
 
 bv_col = Column(name="B-V Color Estimate", data=bv_color)
 t.add_column(bv_col)
+
+fls_one = Column(name="Flares above 1% ", data=flares_one_percent)
+t.add_column(fls_one)
+
+fls_four = Column(name="Flares above 4%", data=flares_four_percent)
+t.add_column(fls_four)
 
 # Save table as a file
 t.write("kepler_q0.html", format = "ascii.html", overwrite = True)
