@@ -34,7 +34,7 @@ def autocorrelate_array(data_array,
     return corr_vals[len(corr_vals)//2+min_lag:len(corr_vals)//2+max_lag+1]/corr_vals[len(corr_vals)//2]
 
 
-def view_flares(path, hist=False, plot_ac=True, plot_ind_flares=True, lombscarg=True):
+def star_info(path, hist=True, plot_ac=True, plot_ind_flares=True, lombscarg=True):
     """
     Plots a de-trended Kepler light curve, with peaks marked at different thresholds according to the
     find_peaks() function.
@@ -177,11 +177,8 @@ def view_flares(path, hist=False, plot_ac=True, plot_ind_flares=True, lombscarg=
         plt.title("Lomb-Scargle for {} Q{}".format(header.get("OBJECT"), header.get("QUARTER")))
         plt.savefig("detailed_star_info/{}/Q{}/LombScarg.png".format(header.get("OBJECT"), header.get("QUARTER")))
 
-
-view_flares("kepler_test/kplr009726699-2010203174610_slc.fits", hist=True, plot_ac=True, plot_ind_flares=True,
-            lombscarg=True)
-
-view_flares("kepler_test/kplr011145819-2009166043257_llc.fits", hist=True, plot_ac=True, plot_ind_flares=True,
-            lombscarg=True)
+if __name__ == "__main__":
+    import sys
+    star_info(str(sys.argv[1]))
 
 
