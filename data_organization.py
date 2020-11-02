@@ -22,6 +22,13 @@ median_flare_int = []
 bv_color = []
 flares_one_percent = []
 flares_four_percent = []
+raw_variability = []
+raw_means = []
+det_vars = []
+det_sig = []
+sn_quality = []
+raw_sigma = []
+raw_sn_quality = []
 
 # Loop through each directory and each file in it
 #for directory in directories:
@@ -38,6 +45,10 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     
     values.append([header.get(key) for key in keys])
     files.append(file)   
+    
+    # Get Raw Target Variability
+    header2 = fits.getheader(file, 1)
+    raw_variability.append(header2.get("PDCVAR"))
     
     # Convert G-R Color to B-V Color
     # Source: http://www.sdss3.org/dr8/algorithms/sdssUBVRITransform.php
@@ -60,6 +71,23 @@ for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     
     lc = lk.LightCurve(time = time, flux = raw_flux)
     lc = lc.remove_nans().flatten()
+    
+    # Get raw flux mean, detrended variance and standard deviation, along with 1/sigma sn quality score
+    raw_mean = np.nanmean(raw_flux)
+    raw_means.append(raw_mean)
+
+    variance = np.var(lc.flux)
+    det_vars.append(variance)
+
+    sig = np.std(lc.flux)
+    det_sig.append(sig)
+
+    sn_qual = 1/sig
+    sn_quality.append(sn_qual)
+
+    # Just for fun, include Raw mean/ Raw sig as well
+    raw_sig = np.nanstd(raw_flux)
+    raw_sn_qual = raw_mean/raw_sig
     
     # different cadences require different flare detection windows
     cadence = header.get("OBSMODE")
@@ -164,5 +192,29 @@ t.add_column(fls_one)
 fls_four = Column(name="Flares above 4%", data=flares_four_percent)
 t.add_column(fls_four)
 
+raw_targ_var = Column(name="Raw Target Variability", data=raw_variability)
+t.add_column(raw_targ_var)
+
+var_ = Column(name="De-trended Variance", data=det_vars)
+t.add_column(var_)
+
+sigs = Column(name="De-trended Sigma", data=det_sig)
+t.add_column(sigs)
+
+sn_q = Column(name="SN Quality (1/Sigma)", data=sn_quality)
+t.add_column(sn_q)
+
+raw_f_mean = Column(name="Raw Flux Mean", data=raw_means)
+t.add_column(raw_f_mean)
+
+raw_sigs = Column(name="Raw Sigma", data=raw_sigma)
+# t.add_column(raw_sigs)
+
+raw_sn = Column(name="Raw SN Quality (Raw Mean/Raw Sigma)", data=raw_sn_quality)
+# t.add_column(raw_sn)
+
+ax1 = df.plot.scatter(x="Raw Target Variability", y="Raw Flux Mean")
+plt.savefig("var_vs_flux.png", overwrite=True)
+
 # Save table as a file
-t.write("kepler_q0.html", format = "ascii.html", overwrite = True)
+t.write("kepler_koi.html", format = "ascii.html", overwrite = True)
