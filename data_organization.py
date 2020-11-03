@@ -213,6 +213,8 @@ raw_sigs = Column(name="Raw Sigma", data=raw_sigma)
 raw_sn = Column(name="Raw SN Quality (Raw Mean/Raw Sigma)", data=raw_sn_quality)
 # t.add_column(raw_sn)
 
+df = t.to_pandas()
+
 ax1 = df.plot.scatter(x="Raw Target Variability", y="Raw Flux Mean")
 plt.savefig("var_vs_flux.png", overwrite=True)
 
