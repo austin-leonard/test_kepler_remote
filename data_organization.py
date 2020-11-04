@@ -207,16 +207,16 @@ t.add_column(sn_q)
 raw_f_mean = Column(name="Raw Flux Mean", data=raw_means)
 t.add_column(raw_f_mean)
 
-raw_sigs = Column(name="Raw Sigma", data=raw_sigma)
+# raw_sigs = Column(name="Raw Sigma", data=raw_sigma)
 # t.add_column(raw_sigs)
 
-raw_sn = Column(name="Raw SN Quality (Raw Mean/Raw Sigma)", data=raw_sn_quality)
+# raw_sn = Column(name="Raw SN Quality (Raw Mean/Raw Sigma)", data=raw_sn_quality)
 # t.add_column(raw_sn)
 
-df = t.to_pandas()
+# df = t.to_pandas()
 
-ax1 = df.plot.scatter(x="Raw Target Variability", y="Raw Flux Mean")
-plt.savefig("var_vs_flux.png", overwrite=True)
+# ax1 = df.plot.scatter(x="Raw Target Variability", y="Raw Flux Mean")
+# plt.savefig("var_vs_flux.png", overwrite=True)
 
 # Save table as a file
 t.write("kepler_koi.html", format = "ascii.html", overwrite = True)
