@@ -1,3 +1,7 @@
+# Creates an astropy table from a directory of fits files. Displays relevant information from headers and light curves. 
+# Tables can be converted into pandas DataFrame objects and manipulated in many ways.
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -11,9 +15,11 @@ from scipy.signal import find_peaks
 keys = ["OBJECT", "OBSMODE", "QUARTER", "TEFF", "RADIUS", "KEPMAG"]
 hdu = 0
 
+# Eventually, this will loop through all top-level directories. For now, directory must be manually specified
 dir_ = "../02_kepler_time_series_scripts/01_Kepler_KOI/"
 directories = glob.glob(dir_ + "*_Kepler_Q*/")
 
+# Store the relevant information
 values = []
 files = []
 total_flares = []
@@ -31,7 +37,6 @@ raw_sigma = []
 raw_sn_quality = []
 
 # Loop through each directory and each file in it
-#for directory in directories:
 # for directory in directories:
 for ind,file in enumerate(glob.glob(dir_+"*.fits")):
     # Get header contents
